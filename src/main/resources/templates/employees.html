@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+Employees:
+
+<a href="/addEmployees">Add Employees</a>
+
+
+<table>
+
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>surname</th>
+        <th>email</th>
+        <th>phoneNumber</th>
+        <th>salary</th>
+        <th>position</th>
+        <th>companies</th>
+    </tr>
+
+    <tr th:each="employee:${employees}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.name}"></td>
+        <td th:text="${employee.surname}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.phoneNumber}"></td>
+        <td th:text="${employee.salary}"></td>
+        <td th:text="${employee.position}"></td>
+        <td th:text="${employee.company.name}"></td>
+<!--        <td><a th:href="@{'/employees/byCompany' + ${employee.id}}">all employees</a></td>-->
+<!--        <td>-->
+<!--            <span th:text="${employee.company.name}"></span>-->
+<!--        </td>-->
+
+
+
+<!--        <td><a th:href="@{'/deleteCompanies/' + ${company.id}}">delete</a></td>-->
+
+</tr>
+</table>
+
+
+<!--<div>-->
+
+<!--    <a th:each="employee:${employees}" th:href="@{'/employees' + ${employee.id}}">-->
+<!--        <div style="width: 105px; float: left">-->
+
+<!--            <div>-->
+<!--                <span th:text="${employee.companies.name}"> </span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </a>-->
+
+<!--</div>-->
+</body>
+</html>
