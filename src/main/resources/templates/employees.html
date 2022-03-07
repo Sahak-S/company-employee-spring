@@ -32,7 +32,7 @@ Employees:
         <td th:text="${employee.phoneNumber}"></td>
         <td th:text="${employee.salary}"></td>
         <td th:text="${employee.position}"></td>
-        <td th:text="${employee.company.name}"></td>
+        <td th:text="${employee.company.name+ '' +employee.company.size + '' + employee.company.address}"></td>
 <!--        <td><a th:href="@{'/employees/byCompany' + ${employee.id}}">all employees</a></td>-->
 <!--        <td>-->
 <!--            <span th:text="${employee.company.name}"></span>-->

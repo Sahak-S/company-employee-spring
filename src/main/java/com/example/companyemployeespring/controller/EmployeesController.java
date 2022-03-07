@@ -28,36 +28,53 @@ public class EmployeesController {
     public String employeesPage(ModelMap map) {
         List<Employee> employees = employeeRepository.findAll();
         map.addAttribute("employees", employees);
+      //  map.addAttribute("company", companyRepository.findAll());
         return "employees";
     }
-
-//    @GetMapping("/addEmployees")
-//    public String addEmployeesPage(){
-//        return "saveEmployees";
-//    }
-
-
 
     @GetMapping("/addEmployees")
-    public String addEmployeesPage(ModelMap map) {
+    public String addEmployeesPage( ModelMap map){
+        List<Employee> employee = employeeRepository.findAll();
+        map.addAttribute("employees",employee);
         map.addAttribute("company", companyRepository.findAll());
         return "saveEmployees";
     }
+
 
     @PostMapping("/addEmployees")
-    public String addEmployees(ModelMap map,@ModelAttribute Employee employee) {
-        map.addAttribute("company", companyRepository.findAll());
-        return "saveEmployees";
+    public String addCompanies(@ModelAttribute Employee employee){
+        employeeRepository.save(employee);
+        return "redirect:/employees";
     }
 
 
-    
-    @GetMapping("/employees/byCompany/{id}")
-    public String employeesCompanyPage(ModelMap map, @PathVariable int id) {
 
-        Company company = companyRepository.getById(id);
-        List<Employee> empley = employeeRepository.findAllByCompany(company);
-        map.addAttribute("empley", empley);
-        return "employees";
-    }
+
+
+
+
+//
+//    @GetMapping("/addEmployees")
+//    public String addEmployeesPage(ModelMap map) {
+//        List<Employee> employee = employeeRepository.findAll();
+//        map.addAttribute("employees",employee);
+//        map.addAttribute("company", companyRepository.findAll());
+//        return "saveEmployees";
+//    }
+//
+//    @PostMapping("/addEmployees")
+//    public String addEmployees(@ModelAttribute Employee employee) {
+//        employeeRepository.save(employee);
+//        return "redirect:/employees";
+//    }
+//
+//
+//    @GetMapping("/employees/byCompany/{id}")
+//    public String employeesCompanyPage(ModelMap map, @PathVariable int id) {
+//
+//        Company company = companyRepository.getById(id);
+//        List<Employee> empley = employeeRepository.findAllByCompany(company);
+//        map.addAttribute("empley", empley);
+//        return "employees";
+//    }
 }
