@@ -1,6 +1,5 @@
 package com.example.companyemployeespring.controller;
 
-
 import com.example.companyemployeespring.entity.Company;
 import com.example.companyemployeespring.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import java.util.List;
 @Controller
 public class CompaniesController {
 
-
     @Autowired
     private CompanyRepository companyRepository;
 
@@ -25,8 +23,8 @@ public class CompaniesController {
         List<Company> companis = companyRepository.findAll();
         map.addAttribute("companis",companis);
         return "companies";
-
     }
+
 
     @GetMapping("/deleteCompanies/{id}")
     public String delete(@PathVariable("id") int id){

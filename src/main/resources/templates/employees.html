@@ -9,6 +9,8 @@
 Employees:
 
 <a href="/addEmployees">Add Employees</a>
+<a href="/employees">view all Employees</a>
+
 
 
 <table>
@@ -22,6 +24,8 @@ Employees:
         <th>salary</th>
         <th>position</th>
         <th>companies</th>
+        <th>picture</th>
+        <th>employees</th>
     </tr>
 
     <tr th:each="employee:${employees}">
@@ -32,32 +36,14 @@ Employees:
         <td th:text="${employee.phoneNumber}"></td>
         <td th:text="${employee.salary}"></td>
         <td th:text="${employee.position}"></td>
-        <td th:text="${employee.company.name+ '' +employee.company.size + '' + employee.company.address}"></td>
-<!--        <td><a th:href="@{'/employees/byCompany' + ${employee.id}}">all employees</a></td>-->
-<!--        <td>-->
-<!--            <span th:text="${employee.company.name}"></span>-->
-<!--        </td>-->
-
-
-<!--        <td><a th:href="@{'/deleteCompanies/' + ${company.id}}">delete</a></td>-->
-
-</tr>
+        <td th:text="${employee.company.name}"></td>
+        <td >
+            <img th:if="${employee.picUrl != null}" th:src="@{/getImage(picName=${employee.picUrl})}" width="100" height="100"/>
+            <img th:if="${employee.picUrl == null}" th:src="@{/getImage(picName=${employee.picUrl})}" width="100" height="100"/>
+        </td>
+        <td ><a th:href="@{'/employees/byCompany/' + ${employee.company.id}}">view companyees employee</a></td>
+    </tr>
 </table>
 
-
-
-
-<!--<div>-->
-
-<!--    <a th:each="employee:${employees}" th:href="@{'/employees' + ${employee.id}}">-->
-<!--        <div style="width: 105px; float: left">-->
-
-<!--            <div>-->
-<!--                <span th:text="${employee.companies.name}"> </span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </a>-->
-
-<!--</div>-->
 </body>
 </html>
