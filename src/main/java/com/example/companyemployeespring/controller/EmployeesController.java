@@ -4,6 +4,9 @@ import com.example.companyemployeespring.entity.Company;
 import com.example.companyemployeespring.entity.Employee;
 import com.example.companyemployeespring.repository.CompanyRepository;
 import com.example.companyemployeespring.repository.EmployeeRepository;
+import com.example.companyemployeespring.service.CompanyService;
+import com.example.companyemployeespring.service.EmployeeService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,32 +24,29 @@ import java.io.InputStream;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class EmployeesController {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private CompanyRepository companyRepository;
+    private final EmployeeService employeeService;
+    private final CompanyService companyService;
 
     @Value("${companyemployeesspring.upload.path}")
     private String imagePhat;
 
     @GetMapping("/employees")
     public String employeesPage(ModelMap map) {
-        List<Employee> employees = employeeRepository.findAll();
+        List<Employee> employees = employeeService.findAll();
         map.addAttribute("employees", employees);
         return "employees";
     }
 
     @GetMapping("/addEmployees")
     public String addEmployeesPage(ModelMap map) {
-        List<Employee> employee = employeeRepository.findAll();
+        List<Employee> employee = employeeService.findAll();
         map.addAttribute("employees", employee);
-        map.addAttribute("company", companyRepository.findAll());
+        map.addAttribute("company", companyService.findAll());
         return "saveEmployees";
     }
-
 
 
 //    @PostMapping("/addEmployees")
@@ -63,19 +63,20 @@ public class EmployeesController {
             uploadedFile.transferTo(newFile);
             employee.setPicUrl(fileName);
         }
-        employeeRepository.save(employee);
+        employeeService.save(employee);
         return "redirect:/employees";
     }
-
 
 
     @GetMapping("/employees/byCompany/{id}")
     public String employeesCompanyPage(ModelMap map, @PathVariable int id) {
 
-        Company company = companyRepository.getById(id);
-        List<Employee> employees = employeeRepository.findAllByCompany(company);
+        Company company = companyService.getById(id);
+        List<Employee> employees = employeeService.findAllByCompany(company);
         map.addAttribute("employees", employees);
         return "employeesPage";
     }
+
+
 
 }
